@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface AuthorService {
     AuthorDto create(AuthorDto authorDto);
+
     List<AuthorDto> findAll();
+
     AuthorDto findById(Integer id);
 }
