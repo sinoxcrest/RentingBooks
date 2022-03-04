@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
+
     @GetMapping
     public String openauthor(Model model){
         model.addAttribute("authorDto",new AuthorDto());
@@ -25,6 +26,7 @@ public class AuthorController {
     @PostMapping("create")
     public String createAuthor(@ModelAttribute AuthorDto authorDto, RedirectAttributes redirectAttributes){
         authorDto=authorService.create(authorDto);
+        authorService.sendEmail(authorDto);
         if(authorDto!=null){
             redirectAttributes.addFlashAttribute("message","Data Saved Successfully");
         }else{

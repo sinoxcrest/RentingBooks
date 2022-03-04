@@ -4,6 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Builder
 @Getter
 @Setter
@@ -20,4 +24,6 @@ public class Category implements Serializable {
     private String name;
     @Column(name="description",length = 255)
     private String description;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<Book> books = new HashSet<>();
 }

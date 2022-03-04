@@ -61,7 +61,8 @@
                     <td th:text="${i.id}"></td>
                     <td th:text="${i.name}"></td>
                     <td th:text="${i.description}"></td>
-                    <td>EDIT||DELETE</td>
+                   <td> <a th:href="@{~/category/delete/}+${i.id}" ><button>Delete</button></a>
+                   </td>
                 </tr>
 
                 </tbody>

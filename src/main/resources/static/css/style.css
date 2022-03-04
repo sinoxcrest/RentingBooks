@@ -98,6 +98,12 @@ ul li a{
 #homepagecover{
     padding-top: 120px !important;
 }
+.error {
+    color: red;
+}
+#viewimage{
+    background-size: 40%;
+}
 @media (max-width: 768px) {
 #sidebar{
     margin-left: -250px;

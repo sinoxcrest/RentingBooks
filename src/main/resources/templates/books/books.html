@@ -1,10 +1,149 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" xmlns:th="https:www.thymeleaf.org">
+<div th:replace="fragments/common-css :: generic_css"></div>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book Renting System</title>
 </head>
 <body>
-$END$
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+
+            <div th:replace="fragments/navigation :: navbar"></div>
+
+        </div>
+
+    </nav>
+    <div id="content" class="col-md-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+            </div>
+
+        </nav>
+        <br><br>
+
+        <form th:action="@{~/books/create}" th:object="${bookDto}" enctype="multipart/form-data" method="post">
+            <u><h2>Books</h2></u>
+            <div class="mb-3">
+                <label class="form-label"> Category Name:</label>
+                <select th:field="*{category}">
+                    <option value=""  selected hidden>Choose..</option>
+                    <option th:each="category: ${categories}"  th:value="${category.id}" th:text="${category.name}" />
+                </select>
+            </div>
+            <div class="container1">
+                <label class="form-label select-label"> Author Name:</label>
+                <select multiple="multiple"  id="MultipleCheckboxes" th:field="*{authorList}">
+                    <option th:each="author: ${authors}" th:value="${author.id}" th:text="${author.firstname}" />
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Book's Name</label>
+                <input type="text" class="form-control"   required maxlength="100" th:field="*{name}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Number of Pages</label>
+                <input type="number" class="form-control"    required maxlength="100" th:field="*{noofpages}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">ISBN</label>
+                <input type="text" class="form-control"  required maxlength="100" th:field="*{isbn}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Rating</label>
+                <input type="number" class="form-control"   required maxlength="100" th:field="*{rating}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Stock Count</label>
+                <input type="number" class="form-control"   required maxlength="100" th:field="*{stockcount}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Published Date</label>
+                <input type="date" class="form-control"  required maxlength="100" th:field="*{publisheddate}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Photo Cover</label>
+            <input type="file" class="form-control" th:field="*{multipartFile}">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p th:text="${message}"></p>
+
+    </div>
+    <div class="col-md-10">
+
+        <u> <h2>Books List</h2></u>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>SN</td>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Author</td>
+                <td>Number of Pages</td>
+                <td>ISBN</td>
+                <td>Rating</td>
+                <td>Stock Count</td>
+                <td>Published Date</td>
+                <td>Photo Cover</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i:${bookDtoList}">
+                <td th:text="${i.id}"></td>
+                <td th:text="${i.name}"></td>
+                <td th:text="${i.categoryname}"></td>
+                <td th:text="${i.authorname}"></td>
+                <td th:text="${i.noofpages}"></td>
+                <td th:text="${i.isbn}"></td>
+                <td th:text="${i.rating}"></td>
+                <td th:text="${i.stockcount}"></td>
+                <td th:text="${i.publisheddate}"></td>
+                <td th:text="${i.filepath}"></td>
+                <td>
+                    <a th:href="@{~/books/view/}+${i.id}"><button>View</button></a>
+                </td>
+
+                <td> <a th:href="@{~/books/delete/}+${i.id}" ><button>Delete</button></a>
+                </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+        <form th:action= "@{books/generate}" method="post">
+            <button type="submit">Excel Generate</button></form>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#sidebarCollapse").on('click',function (){
+            $("#sidebar").toggleClass('active');
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        $('#MultipleCheckboxes').multiselect({
+            enableClickableOptGroups: true,
+            includeSelectAllOption:true,
+            nonSelectedText: 'Choose..'
+        });
+    });
+</script>
 </body>
 </html>

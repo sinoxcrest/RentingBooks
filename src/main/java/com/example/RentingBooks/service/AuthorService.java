@@ -10,4 +10,5 @@ public interface AuthorService {
     List<AuthorDto> findAll();
 
     AuthorDto findById(Integer id);
+    void sendEmail(AuthorDto authorDto);
 }

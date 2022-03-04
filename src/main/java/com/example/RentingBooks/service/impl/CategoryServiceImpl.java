@@ -1,19 +1,26 @@
 package com.example.RentingBooks.service.impl;
 
+import com.example.RentingBooks.dto.BookDto;
 import com.example.RentingBooks.dto.CategoryDto;
+import com.example.RentingBooks.entity.Book;
 import com.example.RentingBooks.entity.Category;
+import com.example.RentingBooks.repo.BookRepo;
 import com.example.RentingBooks.repo.CategoryRepo;
 import com.example.RentingBooks.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepo categoryRepo;
+    @Autowired
+    private BookRepo bookRepo;
     @Override
     public CategoryDto create(CategoryDto categoryDto) {
         Category entity=Category.builder()
@@ -39,8 +46,23 @@ public class CategoryServiceImpl implements CategoryService {
                 .description(entity.getDescription())
                 .build()).collect(Collectors.toList());
     }
+
+
+
     @Override
     public CategoryDto findById(Integer id) {
         return null;
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        Optional<Category> optionalCategory=categoryRepo.findById(id);
+        if(optionalCategory.isPresent()) {
+            categoryRepo.deleteById(id);
+
+
+        }
+    }
+
+
 }

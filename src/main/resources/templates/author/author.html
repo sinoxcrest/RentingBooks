@@ -32,16 +32,20 @@
         <form  th:action="@{~/author/create}" th:object="${authorDto}" method="post">
             <u><h2>Author</h2></u>
             <div class="mb-3">
-                <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" th:field="*{fullname}"   required maxlength="100">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control" th:field="*{firstname}"    maxlength="100">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" th:field="*{lastname}"    maxlength="100">
             </div>
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="text" class="form-control" th:field="*{email}"  required maxlength="100">
+                <input type="text" class="form-control" th:field="*{email}" maxlength="100">
             </div>
             <div class="mb-3">
                 <label class="form-label">Mobile Number</label>
-                <input type="text" class="form-control" th:field="*{mobileno}"  required maxlength="10">
+                <input type="text" class="form-control" th:field="*{mobileno}"   maxlength="10">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -63,7 +67,7 @@
             <tbody>
             <tr th:each="i:${authorDtoList}">
                 <td th:text="${i.id}"></td>
-                <td th:text="${i.fullname}"></td>
+                <td th:text="${i.firstname+' '+i.lastname}"></td>
                 <td th:text="${i.email}"></td>
                 <td th:text="${i.mobileno}"></td>
                 <td>EDIT||DELETE</td>
