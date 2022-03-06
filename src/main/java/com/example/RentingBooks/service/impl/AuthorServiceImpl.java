@@ -2,6 +2,7 @@ package com.example.RentingBooks.service.impl;
 
 import com.example.RentingBooks.dto.AuthorDto;
 import com.example.RentingBooks.entity.Author;
+import com.example.RentingBooks.entity.Book;
 import com.example.RentingBooks.repo.AuthorRepo;
 import com.example.RentingBooks.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,8 @@ public class AuthorServiceImpl implements AuthorService {
                 id(entity.getId())
                 .firstname(entity.getFirstname())
                 .lastname(entity.getLastname())
-                .email(authorDto.getEmail())
-                .mobileno(authorDto.getMobileno())
+                .email(entity.getEmail())
+                .mobileno(entity.getMobileno())
                 .build();
     }
 
@@ -70,5 +71,13 @@ public class AuthorServiceImpl implements AuthorService {
         message.setText(authorDto.getMessage());
         mailSender.send(message);
         System.out.println("Successfully sent!!");
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        Optional<Author> optionalAuthor=authorRepo.findById(id);
+        if(optionalAuthor.isPresent()) {
+            authorRepo.deleteById(id);
+        }
     }
 }

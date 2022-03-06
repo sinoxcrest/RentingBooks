@@ -11,4 +11,5 @@ public interface AuthorService {
 
     AuthorDto findById(Integer id);
     void sendEmail(AuthorDto authorDto);
+    void deleteById(Integer id);
 }

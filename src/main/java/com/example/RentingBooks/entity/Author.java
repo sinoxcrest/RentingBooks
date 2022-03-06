@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @Getter
@@ -26,4 +28,6 @@ public class Author implements Serializable {
     private String email;
     @Column(name="mobileno",length = 10,unique = true)
     private String mobileno;
+    @ManyToMany(mappedBy = "authorList", cascade = CascadeType.ALL)
+    private Set<Book> books = new HashSet<>();
 }

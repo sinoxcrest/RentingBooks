@@ -29,19 +29,20 @@
         </nav>
         <br><br>
 
-        <form  th:action="@{~/author/create}" th:object="${authorDto}" method="post">
-            <u><h2>Author</h2></u>
+        <form  th:action="@{~/member/create}" th:object="${memberDto}" method="post">
+            <u><h2>Member</h2></u>
             <div class="mb-3">
-                <label class="form-label">First Name</label>
-                <input type="text" class="form-control" th:field="*{firstname}"    maxlength="100">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" th:field="*{name}"    maxlength="100">
             </div>
-            <div class="mb-3">
-                <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" th:field="*{lastname}"    maxlength="100">
-            </div>
+
             <div class="mb-3">
                 <label class="form-label">Email</label>
                 <input type="text" class="form-control" th:field="*{email}" maxlength="100">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input type="text" class="form-control" th:field="*{address}"    maxlength="100">
             </div>
             <div class="mb-3">
                 <label class="form-label">Mobile Number</label>
@@ -53,25 +54,26 @@
     </div>
     <div class="col-md-8">
 
-        <u> <h2>Author List</h2></u>
+        <u> <h2>Member List</h2></u>
         <table class="table table-striped">
             <thead>
             <tr>
                 <td>SN</td>
                 <td>Full Name</td>
                 <td>Email</td>
+                <td>Address</td>
                 <td>Mobile Number</td>
                 <td>Action</td>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="i:${authorDtoList}">
+            <tr th:each="i:${memberDtoList}">
                 <td th:text="${i.id}"></td>
-                <td th:text="${i.firstname+' '+i.lastname}"></td>
+                <td th:text="${i.name}"></td>
                 <td th:text="${i.email}"></td>
+                <td th:text="${i.address}"></td>
                 <td th:text="${i.mobileno}"></td>
-                <td> <a th:href="@{~/author/delete/}+${i.id}" ><button>Delete</button></a>
-                </td>
+                <td> <a th:href="@{~/member/delete/}+${i.id}" ><button>Delete</button></a>
             </tr>
             </tbody>
         </table>

@@ -6,7 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @Getter
@@ -42,5 +44,7 @@ public class Book implements Serializable {
     @JoinTable(name = "authors_book", joinColumns =@JoinColumn(name="book_id"),
             inverseJoinColumns =@JoinColumn(name= "author_id"))
     private List<Author> authorList;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private Set<BookTransaction> bookTransactions = new HashSet<>();
 
 }
